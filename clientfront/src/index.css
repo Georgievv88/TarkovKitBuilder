@@ -1,0 +1,461 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0b0d0b;
+  color: #d6d2c4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav {
+  background: #141714;
+  border-bottom: 1px solid #2e332c;
+  padding: 16px 32px;
+  display: flex;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+nav a {
+  color: #c8b36b;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #f0d779;
+}
+
+button {
+  background: #4d5a32;
+  color: #f1ead2;
+  border: 1px solid #7b8b4a;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #65753e;
+}
+
+input {
+  background: #111411;
+  color: #f1ead2;
+  border: 1px solid #3c4337;
+  padding: 9px;
+  border-radius: 4px;
+  margin: 6px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #8a9b50;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #e0d4a4;
+}
+
+p {
+  color: #c5bfaa;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #2e332c;
+  margin: 24px 0;
+}
+
+img {
+  background: #0b0c0b;
+  border: 1px solid #33382f;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+#loadout-builder {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+#saved-loadouts,
+.home-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px;
+}
+/* Builder two-column layout */
+
+.builder-layout {
+  display: grid;
+  grid-template-columns: 1fr 700px;
+  gap: 24px;
+  align-items: start;
+}
+
+.builder-left {
+  min-width: 0;
+}
+
+.builder-right {
+  position: sticky;
+  top: 90px;
+  align-self: start;
+}
+
+.builder-right .gear-layout {
+  margin-top: 0;
+}
+
+.builder-right .tarkov-layout-image {
+  width: 619px;
+  height: 721px;
+}
+
+#loadout-builder > div,
+#saved-loadouts > div,
+.home-page {
+  background: #141814;
+  border: 1px solid #2e332c;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.item-card,
+.loadout-card {
+  background: #111411;
+  border: 1px solid #2e332c;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+}
+
+.item-card h3,
+.loadout-card h3 {
+  margin-top: 8px;
+}
+
+.price {
+  color: #b6d36b;
+  font-weight: bold;
+}
+
+.danger-btn {
+  background: #5c2727;
+  border-color: #9b3c3c;
+}
+
+.danger-btn:hover {
+  background: #7a3030;
+}
+
+/* Search results */
+
+.search-results {
+  margin-top: 16px;
+}
+
+.search-result-card {
+  background: #111411;
+  border: 1px solid #2e332c;
+  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-result-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+/* Gear layout section */
+
+.gear-layout {
+  margin-top: 24px;
+  background: #141814;
+  border: 1px solid #2e332c;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.gear-layout h2 {
+  margin-top: 0;
+}
+
+/* Tarkov soldier layout */
+
+.tarkov-layout-image {
+  position: relative;
+  width: 619px;
+  height: 721px;
+  margin: 0 auto;
+  background-image: url("/tarkovsoldier.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Slot overlays */
+
+.tarkov-slot {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.tarkov-slot-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: rgba(5, 7, 6, 0.18);
+  border: 1px solid rgba(145, 165, 78, 0.45);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+/* Base image style for all Tarkov slot items */
+
+.tarkov-slot-item img {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 28px);
+  object-fit: contain;
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: none;
+  max-height: none;
+}
+
+.tarkov-slot-item span {
+  position: absolute;
+  bottom: 5px;
+  left: 4px;
+  right: 4px;
+  font-size: 11px;
+  color: #f4e7a1;
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Slot positions */
+
+.slot-earpiece {
+  top: 30px;
+  left: 66px;
+  width: 128px;
+  height: 148px;
+}
+
+.slot-headwear {
+  top: 30px;
+  left: 249px;
+  width: 128px;
+  height: 148px;
+}
+
+.slot-facecover {
+  top: 30px;
+  left: 433px;
+  width: 128px;
+  height: 148px;
+}
+
+.slot-bodyarmor {
+  top: 197px;
+  left: 249px;
+  width: 128px;
+  height: 148px;
+}
+
+.slot-eyewear {
+  top: 197px;
+  left: 433px;
+  width: 128px;
+  height: 148px;
+}
+
+.slot-sling {
+  top: 365px;
+  left: 66px;
+  width: 313px;
+  height: 150px;
+}
+
+.slot-backpack {
+  top: 535px;
+  left: 66px;
+  width: 313px;
+  height: 150px;
+}
+
+.slot-holster {
+  top: 365px;
+  left: 433px;
+  width: 128px;
+  height: 150px;
+}
+
+.slot-sheath {
+  top: 535px;
+  left: 433px;
+  width: 128px;
+  height: 150px;
+}
+
+/* Bigger icons for square slots */
+
+.slot-earpiece .tarkov-slot-item img,
+.slot-headwear .tarkov-slot-item img,
+.slot-facecover .tarkov-slot-item img,
+.slot-bodyarmor .tarkov-slot-item img,
+.slot-eyewear .tarkov-slot-item img,
+.slot-holster .tarkov-slot-item img,
+.slot-sheath .tarkov-slot-item img {
+  position: absolute;
+  top: 16px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 36px);
+  object-fit: contain;
+  max-width: none;
+  max-height: none;
+}
+
+/* Bigger icons for wide weapon/backpack slots */
+
+.slot-sling .tarkov-slot-item img,
+.slot-backpack .tarkov-slot-item img {
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 32px);
+  object-fit: contain;
+  max-width: none;
+  max-height: none;
+}
+
+/* Make gun/backpack labels line up like Tarkov */
+
+.slot-sling .tarkov-slot-item span,
+.slot-backpack .tarkov-slot-item span {
+  text-align: right;
+  padding-right: 4px;
+}
+
+/* Extra scaling for weapons if Tarkov API image has empty padding */
+
+.slot-sling .tarkov-slot-item img {
+  transform: scale(1.35);
+}
+
+.slot-backpack .tarkov-slot-item img {
+  transform: scale(1.15);
+}
+
+/* Saved loadouts */
+
+#saved-loadouts .loadout-card {
+  display: block;
+}
+
+#saved-loadouts .item-card > img,
+#saved-loadouts .saved-item-row img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.saved-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111411;
+  border: 1px solid #2e332c;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+
+/* Mobile */
+
+@media (max-width: 760px) {
+  nav {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+
+  #loadout-builder,
+  #saved-loadouts,
+  .home-page {
+    padding: 16px;
+  }
+
+  .tarkov-layout-image {
+    width: 100%;
+    max-width: 619px;
+    aspect-ratio: 619 / 721;
+    height: auto;
+  }
+}
+#saved-loadouts .tarkov-slot-item img {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 28px);
+  object-fit: contain;
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: none;
+  max-height: none;
+}
+
+#saved-loadouts .slot-sling .tarkov-slot-item img {
+  top: 12px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 32px);
+  transform: scale(1.35);
+}
+
+#saved-loadouts .slot-backpack .tarkov-slot-item img {
+  top: 12px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 32px);
+  transform: scale(1.15);
+}
+@media (max-width: 1200px) {
+  .builder-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .builder-right {
+    position: static;
+  }
+}
