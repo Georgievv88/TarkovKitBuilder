@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ItemSearch } from "../components/ItemSearch";
 import { LoadoutSummary } from "../components/LoadoutSummary";
-import axios from "axios";
+// import axios from "axios";
+import api from "../api/api";
 import { GearLayout } from "../components/GearLayot";
 
 export function LoadoutBuilder() {
@@ -138,7 +139,7 @@ export function LoadoutBuilder() {
       totalWeight,
     };
 
-    const res = await axios.post("http://localhost:5000/api/loadouts", loadout);
+    const res = await api.post("/loadouts", loadout);
 
     console.log("Saved loadout:", res.data);
     alert("Loadout saved");

@@ -9,6 +9,7 @@ const createLoadout = async (req, res) => {
       items,
       totalCost,
       totalWeight,
+      user: req.user._id,
     });
 
     res.status(201).json(loadout);
@@ -21,7 +22,10 @@ const createLoadout = async (req, res) => {
 const deleteLoadout = async (req, res) => {
   try {
     const { id } = req.params;
-    await Loadout.findByIdAndDelete(id);
+    await Loadout.findByIdAndDelete({
+      _id: id,
+      user: req.user._id,
+    });
     res.json({ message: "LOADOUT DELETED" });
   } catch (error) {
     console.log(error.message);
@@ -33,7 +37,9 @@ const getLoadouts = async (req, res) => {
   try {
     console.log("GET /api/loadouts hit");
 
-    const loadouts = await Loadout.find().sort({ createdAt: -1 });
+    const loadouts = await Loadout.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
 
     res.json(loadouts);
   } catch (error) {
@@ -46,7 +52,7 @@ const getLoadoutById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const loadout = await Loadout.findById(id);
+    const loadout = await Loadout.findOne({ _id: id, user: req.user._id });
     if (!loadout) {
       return res.status(404).json({ message: "Loadout not found" });
     }

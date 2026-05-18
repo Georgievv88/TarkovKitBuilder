@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import api from "../api/api";
 import { Link } from "react-router-dom";
 
 export function SavedLoadouts() {
@@ -11,14 +12,14 @@ export function SavedLoadouts() {
 
   async function getLoadouts() {
     try {
-      const res = await axios.get("http://localhost:5000/api/loadouts");
+      const res = await api.get("/loadouts");
       setLoadouts(res.data);
     } catch (error) {
       console.log("Failed to get loadouts:", error);
     }
   }
   async function deleteLoadout(id) {
-    await axios.delete(`http://localhost:5000/api/loadouts/${id}`);
+    await api.delete(`/loadouts/${id}`);
 
     setLoadouts(loadouts.filter((loadout) => loadout._id !== id));
   }
@@ -50,6 +51,7 @@ export function SavedLoadouts() {
               </div>
             ))
           )}
+
           <Link to={`/loadouts/${loadout._id}`}>
             <button>View Details</button>
           </Link>

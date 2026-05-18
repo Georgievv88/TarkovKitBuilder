@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import api from "../api/api";
 import { useParams, Link } from "react-router-dom";
 import { GearLayout } from "../components/GearLayot";
 
@@ -13,7 +14,7 @@ export function LoadoutDetails() {
 
   async function getLoadout() {
     try {
-      const res = await axios.get(`http://localhost:5000/api/loadouts/${id}`);
+      const res = await api.get(`/loadouts/${id}`);
       setLoadout(res.data);
     } catch (error) {
       console.log("Failed to get loadout:", error);

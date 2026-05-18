@@ -20,6 +20,12 @@ const loadoutSchema = new mongoose.Schema({
   items: [loadoutItemSchema],
   totalCost: Number,
   totalWeight: Number,
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Loadout", loadoutSchema);
