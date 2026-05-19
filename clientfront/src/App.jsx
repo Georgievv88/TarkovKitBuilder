@@ -1,5 +1,12 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
+
 import { Home } from "./pages/Home";
 import { LoadoutBuilder } from "./pages/LoadoutBuilder";
 import { SavedLoadouts } from "./pages/SavedLoadouts";
@@ -8,26 +15,52 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { PrivateRoute } from "./utils/PrivateRoutes";
 
-export function App() {
+function AppContent() {
+  const navigate = useNavigate();
+
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem("user");
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch {
+      localStorage.removeItem("user");
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    function updateAuthState() {
+      setToken(localStorage.getItem("token"));
+
+      try {
+        const savedUser = localStorage.getItem("user");
+        setUser(savedUser ? JSON.parse(savedUser) : null);
+      } catch {
+        localStorage.removeItem("user");
+        setUser(null);
+      }
+    }
+
+    window.addEventListener("authChanged", updateAuthState);
+
+    return () => {
+      window.removeEventListener("authChanged", updateAuthState);
+    };
+  }, []);
+
   function handleLogout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/login";
-  }
 
-  const token = localStorage.getItem("token");
-  let user = null;
+    setToken(null);
+    setUser(null);
 
-  try {
-    const savedUser = localStorage.getItem("user");
-    user = savedUser ? JSON.parse(savedUser) : null;
-  } catch (error) {
-    localStorage.removeItem("user");
-    user = null;
+    navigate("/login");
   }
 
   return (
-    <BrowserRouter>
+    <>
       <nav className="main-nav">
         <div className="nav-left">
           {token ? (
@@ -93,6 +126,14 @@ export function App() {
           }
         />
       </Routes>
+    </>
+  );
+}
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

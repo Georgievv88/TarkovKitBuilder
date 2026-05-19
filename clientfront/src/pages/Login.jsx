@@ -29,6 +29,8 @@ export function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
+      window.dispatchEvent(new Event("authChanged"));
+
       navigate("/builder");
     } catch (error) {
       setError(error.response?.data?.message || "Login Failed");
