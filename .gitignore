@@ -1,4 +1,8 @@
 node_modules
+**/node_modules
 .env
+**/.env
 dist
-.DS_Store
+clientfront/dist
+backend/node_modules
+clientfront/node_modules
